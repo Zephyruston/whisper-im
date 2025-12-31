@@ -1,0 +1,13 @@
+[project]
+name = "whisper-im"
+version = "0.1.0"
+description = "Voice input tool - record, transcribe, copy to clipboard"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "opencc>=1.1.9",
+    "pyqt6>=6.10.1",
+]
+
+[project.scripts]
+whisper-im = "main:main"
