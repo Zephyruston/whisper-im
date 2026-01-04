@@ -397,6 +397,14 @@ class VoiceInputWindow(QMainWindow):
         self.space_shortcut = QShortcut(Qt.Key.Key_Space, self)
         self.space_shortcut.activated.connect(self.toggle_record)
 
+    def closeEvent(self, event):
+        """Handle window close event to clean up resources"""
+        # Stop recording process if running
+        if self.recording_process and self.recording_process.poll() is None:
+            self.recording_process.terminate()
+            self.recording_process.wait()
+        event.accept()
+
     def open_settings(self):
         dialog = SettingsDialog(self)
         dialog.exec()
