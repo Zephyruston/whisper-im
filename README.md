@@ -186,3 +186,23 @@ sudo pacman -S alsa-utils wl-clipboard
 
 - `arecord`（来自 alsa-utils）- 用于录音
 - `wl-copy`（来自 wl-clipboard）- 用于在 Wayland 下复制到剪贴板
+
+## 全局快捷键
+
+设置 `Super+M` 作为全局快捷键启动 whisper-im（GNOME / Wayland）：
+
+```bash
+# 获取现有自定义快捷键列表
+existing=$(dconf read /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings)
+
+# 添加新的快捷键路径（保留已有的）
+dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings \
+  "$existing'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/'"
+
+# 配置快捷键属性
+dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name "'whisper-im'"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'whisper-im'"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding "'<Super>m'"
+```
+
+> **注意**：如果已有其他自定义快捷键，将路径列表中的 `custom0` 替换为 `custom1`、`custom2` 等避免覆盖。
